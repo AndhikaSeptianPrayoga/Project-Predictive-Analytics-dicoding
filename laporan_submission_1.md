@@ -139,17 +139,17 @@ Dapat dilihat bahwa dataset yang dipakai pada proyek saat ini tidak mengandung d
 
 #### Distribusi
 Hasil visualisasi histogram menunjukkan bahwa beberapa fitur seperti `Pregnancies`, `Insulin`, dan `Age` memiliki distribusi miring (skewed), sementara fitur seperti `BMI` dan `Glucose` lebih mendekati distribusi normal.  
-![distribusi](image/distribusi.png)
+![distribusi](Image/distribusi.png)
 
 #### Boxplot
 Boxplot menunjukkan keberadaan **outlier** pada fitur `Insulin`, `SkinThickness`, dan `DiabetesPedigreeFunction`.
-![boxplot](image/boxplot.png)
+![boxplot](Image/boxplot.png)
 
 Namun, karena tujuan dari proyek ini adalah **deteksi diabetes**, maka outlier **tidak dihapus** karena bisa merepresentasikan kondisi medis yang valid dan penting (misalnya kadar glukosa sangat tinggi atau pasien dengan riwayat keluarga kuat).
 
 #### Matriks Korelasi
 
-![corr](image/corr.png)
+![corr](Image/corr.png)
 - Fitur **Glucose** memiliki korelasi paling tinggi terhadap target `Outcome` (**r = 0.47**), menunjukkan bahwa kadar glukosa darah sangat mempengaruhi klasifikasi diabetes.
 - **BMI** dan **Age** juga memiliki korelasi sedang terhadap `Outcome`.
 - Sebagian besar fitur lainnya menunjukkan korelasi rendah satu sama lain, mengindikasikan rendahnya multikolinearitas.
@@ -167,7 +167,7 @@ Skala antar fitur sangat bervariasi, misalnya kadar `Glucose` berkisar antara 0 
 # Statistik deskriptif untuk fitur numerik
 df.describe()
 ```
-![abnormal](image/abnormal.png)
+![abnormal](Image/abnormal.png)
 
 ```python
 # Normalisasi Data
@@ -177,7 +177,7 @@ scaled_features = scaler.fit_transform(features)
 scaled_df = pd.DataFrame(scaled_features, columns=features.columns)
 scaled_df['Outcome'] = df['Outcome']
 ```
-![normal](image/normal.png)
+![normal](Image/normal.png)
 
 ### Splitting Dataset
 Dataset dibagi menjadi 80% data latih dan 20% data uji. Data latih digunakan untuk membangun model, sementara data uji digunakan untuk mengevaluasi kinerja model. Pembagian ini memastikan bahwa model dapat diuji dengan data yang tidak pernah dilihat sebelumnya, memberikan gambaran yang lebih akurat tentang kemampuan generalisasi model.
@@ -206,7 +206,7 @@ Tiga algoritma klasifikasi digunakan dalam proyek ini. Pemilihan algoritma ini d
 #### 1. **Logistic Regression** 
 
 **Logistic Regression** adalah model klasifikasi yang digunakan untuk memprediksi probabilitas suatu kejadian dengan menggunakan fungsi logistik (sigmoid). Fungsi ini memetakan output ke dalam rentang 0 hingga 1, yang dapat diinterpretasikan sebagai probabilitas kelas positif. Model ini mengasumsikan hubungan linear antara fitur dan log-odds dari probabilitas kelas positif. Formula untuk prediksi probabilitas adalah:  
-![logreg](image/logreg.png)
+![logreg](Image/logreg.png)
 
 adalah fitur input. Model ini menggunakan fungsi log-likelihood untuk mengoptimalkan koefisien selama proses pelatihan.
    - **Kelebihan**: Cepat dilatih, menghasilkan output probabilistik, mudah diinterpretasikan, dan sangat cocok untuk klasifikasi biner.
@@ -215,14 +215,14 @@ adalah fitur input. Model ini menggunakan fungsi log-likelihood untuk mengoptima
 #### 2. **Random Forest**
 
 **Random Forest** adalah metode ensemble yang membangun banyak pohon keputusan (decision trees) dan menggabungkan hasil prediksi mereka untuk menghasilkan keputusan akhir. Setiap pohon dibangun menggunakan subset acak dari data dan fitur untuk mengurangi overfitting dan meningkatkan generalisasi. Proses pelatihan melibatkan pemilihan subset acak dari data dan pemilihan acak fitur pada setiap split pohon. Hasil prediksi untuk klasifikasi diambil dengan **voting** mayoritas dari semua pohon, sedangkan untuk regresi menggunakan rata-rata dari hasil pohon. Proses ini dapat digambarkan dengan formula berikut:  
-![rf](image/rf.png)  
+![rf](Image/rf.png)  
 Di mana \( f(x) \) adalah prediksi akhir, \( N \) adalah jumlah pohon dalam hutan, dan \( T_i(x) \) adalah prediksi dari pohon ke-i untuk input \( x \).
    - **Kelebihan**: Mampu menangani outlier dan relasi non-linear, serta tahan terhadap overfitting.
    - **Kekurangan**: Lebih kompleks, lebih sulit dijelaskan kepada pihak non-teknis, dan bisa kurang efisien saat fitur tidak relevan.
 
 #### 3. **Support Vector Machine (SVM)**
 **Support Vector Machine (SVM)** adalah algoritma klasifikasi yang memetakan data ke ruang vektor berdimensi lebih tinggi dan mencari **hyperplane** yang memaksimalkan margin antara dua kelas. Dalam SVM, tujuan utama adalah menemukan hyperplane yang memisahkan dua kelas dengan margin terbesar. Formula untuk mencari hyperplane yang optimal adalah sebagai berikut:  
-![svm](image/svm.png)  
+![svm](Image/svm.png)  
 Di sini, \( w \) adalah vektor bobot, \( b \) adalah bias, dan \( x \) adalah input data. SVM juga menggunakan fungsi kernel untuk mengubah data ke ruang yang lebih tinggi jika data tidak dapat dipisahkan secara linear. Fungsi kernel yang umum digunakan termasuk linear, polinomial, dan Gaussian Radial Basis Function (RBF). 
 SVM berfokus pada **support vectors**, yaitu data titik yang paling dekat dengan hyperplane, yang menentukan margin.
    - **Kelebihan**: Efektif untuk dataset berdimensi menengah dan mampu membangun margin klasifikasi yang kuat.
@@ -308,7 +308,7 @@ Untuk mengevaluasi performa model dalam tugas klasifikasi biner (diabetes atau t
   Persentase prediksi yang benar dari keseluruhan data.  
   Rumus:  
   
-  ![acc](image/acc.png)
+  ![acc](Image/acc.png)
 
   Di mana:
   - **TP (True Positive)**: Prediksi positif yang benar (diabetes → diabetes)
@@ -319,21 +319,21 @@ Untuk mengevaluasi performa model dalam tugas klasifikasi biner (diabetes atau t
 - **Precision**  
   Seberapa tepat model saat memprediksi pasien sebagai penderita diabetes.  
   
-  ![prec](image/prec.png)
+  ![prec](Image/prec.png)
 
   Artinya, dari seluruh kasus yang diprediksi sebagai diabetes, seberapa banyak yang benar-benar diabetes.
 
 - **Recall**  
   Kemampuan model untuk menemukan semua kasus diabetes yang sebenarnya ada.  
   
-  ![recall](image/recall.png)
+  ![recall](Image/recall.png)
 
   Semakin tinggi recall, semakin sedikit pasien diabetes yang luput dari deteksi (false negative rendah).
 
 - **F1-Score**  
   Rata-rata harmonis dari precision dan recall, menyeimbangkan keduanya.  
   
-  ![f1](image/f1.png)
+  ![f1](Image/f1.png)
 
   Berguna saat kita perlu mempertimbangkan **kesalahan dua arah (false positive & false negative)** secara bersamaan, seperti dalam diagnosis penyakit.
 
